@@ -16,6 +16,13 @@ export default defineConfig({
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
         }
     },
+    css: {
+        preprocessorOptions: {
+            css: {
+                additionalData: '@import "swiper/swiper-bundle.css";',
+            },
+        },
+    },
     server: {
         host: '0.0.0.0',       // Allow access from outside the container
         port: 5173,            // Use the same port as defined in Docker Compose file
