@@ -4,18 +4,22 @@
         <div class="cart-full d-flex" v-if="cartItems">
             <div class="items-wrapper w-75">
                 <div class="items-header">سبد خرید شما</div>
-                <div class="items-count">{{ cartItems.length }} کالا</div>
+                <div class="items-count">{{ itemsCount }} کالا</div>
                 <div class="items-body">
                     <CartItem
                         v-for="cartItem in cartItems"
                         :key="cartItem.title"
                         :cartItem="cartItem"
                         @showAlert="showAlert"
+                        @deleteItem="deleteItem"
                     />
                 </div>
             </div>
-            <div class="pricing w-25">
-                pricing
+            <div class="continue-checkout-wrapper w-25">
+                <ContinueCheckout 
+                    :itemsCount="itemsCount" 
+                    :totalPrice="totalPrice"
+                />
             </div>
         </div>
         <div class="cart-empty d-flex align-items-center flex-column" v-else>
@@ -27,33 +31,35 @@
 
 <script>
 import CartItem from "./CartItem.vue";
+import ContinueCheckout from "./ContinueCheckout.vue";
+import alertMixin from '@/helpers/mixins/alertMixin';
 
 export default {
-    components: { CartItem },
+    components: { CartItem, ContinueCheckout },
     data() {
         return {
             cartItems: null,
-            alertData: {
-                show: false,
-                message: null,
-                type: null
-            }
         }
     },
+    mixins: [alertMixin],
     created() {
         axios.get(`/api/carts`)
             .then(response => this.cartItems = response.data)
             .catch((error) => console.log(error))
     },
     methods: {
-        showAlert(payload) {
-            this.alertData = {
-                show: true,
-                message: payload.message,
-                type: payload.type
-            }
+        deleteItem(id) {
+            this.cartItems = this.cartItems.filter(item => item.id !== id);
         }
-    }
+    },
+    computed: {
+        itemsCount() {
+            return this.cartItems.reduce((count, item) => count + item.pivot.count, 0);
+        },
+        totalPrice() {
+            return this.cartItems.reduce((price, item) => price + (item.pivot.count * item.price), 0);
+        },
+    },
 }
 </script>
 
@@ -72,10 +78,11 @@ export default {
         margin-bottom: 5px;
         padding-right: 24px;
     }
-    .pricing {
+    .continue-checkout-wrapper {
         border: 1px solid #e0e0e2;
         border-radius: 10px;
         padding: 12px 20px;
+        height: max-content;
     }
     .cart-empty {
         border: 1px solid #e0e0e2;

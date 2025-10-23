@@ -12,8 +12,12 @@
                         {{ cartItem.pivot.count }}
                     </span>
                 </div>
-                <span class="signs decrease d-flex align-items-center" @click="changeItemCount(decrease)">
-                    <i class="fa-solid fa-minus fa-xs"></i>
+                <span
+                    class="signs decrease d-flex align-items-center"
+                    @click="cartItem.pivot.count === 1 ? deleteItem() : changeItemCount(decrease)"
+                >
+                    <i class="fa-solid fa-trash fa-xs" v-if="cartItem.pivot.count === 1"></i>
+                    <i class="fa-solid fa-minus fa-xs" v-else></i>
                 </span>
             </div>
         </div>
@@ -24,11 +28,17 @@
             <div class="item-details">
                 {{ getDescription(cartItem.description) }}
             </div>
+            <div class="item-price mt-3">
+                <span class="price-number">{{ new Intl.NumberFormat().format(cartItem.price * cartItem.pivot.count) }}</span>
+                <span> تومان </span>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import { HTTP_STATUS_CODES } from '@/helpers/constants/httpStatusCodes';
+
 export default {
     props: {
         cartItem: Object,
@@ -47,19 +57,31 @@ export default {
         },
         changeItemCount(type) {
             this.isLoading = true;
-            axios.patch(`/api/carts/${this.cartItem.pivot.cart_id}/products/${this.cartItem.pivot.product_id}/changeCount`,
-                { type }
-                )
+            axios.patch(`/api/carts/products/${this.cartItem.pivot.product_id}/changeCount`, { type })
                 .then(response => {
-                    if (response.status == 200) {
+                    if (response.status == HTTP_STATUS_CODES.OK) {
                         this.cartItem.pivot.count += (type === this.increase ? 1 : -1);
+                        this.emitter.emit('cart-count-update', { type });
                     }
                 })
-                .catch(() => this.$emit('showAlert', {
-                    message: this.errorMessage,
-                    type: 'error'
-                }))
+                .catch(() => this.showError())
                 .finally(() => this.isLoading = false);
+        },
+        deleteItem() {
+            this.isLoading = true;
+            axios.delete(`/api/carts/products/${this.cartItem.pivot.product_id}`)
+                .then(response => {
+                    if (response.status == HTTP_STATUS_CODES.OK) {
+                        this.$emit('deleteItem', this.cartItem.pivot.product_id);
+                        this.emitter.emit('cart-count-update', { type: 'decrease' });
+                        this.$emit('showAlert', response.data.response_message, 'success');
+                    }
+                })
+                .catch(() => this.showError())
+                .finally(() => this.isLoading = false);
+        },
+        showError() {
+            this.$emit('showAlert', this.errorMessage, 'error');
         }
     }
 }
@@ -98,5 +120,9 @@ export default {
     .signs {
         font-size: 20px;
         cursor: pointer;
+    }
+    .item-price .price-number {
+        font-size: 17px;
+        font-weight: bold;
     }
 </style>
