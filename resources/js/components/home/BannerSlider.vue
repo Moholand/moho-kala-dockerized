@@ -109,10 +109,12 @@ export default {
     }
 
     .swiper-button-next {
+        display: none;
         right: 10px;
     }
 
     .swiper-button-prev {
+        display: none;
         left: 10px;
     }
 
