@@ -10,7 +10,7 @@
                 <span>تومان</span>
             </div>
         </div>
-        <a class="continue-checkout-btn">تایید و تکمیل سفارش</a>
+        <a class="continue-checkout-btn" @click.prevent="handleClick">{{ buttonText }}</a>
     </div>
 </template>
 
@@ -19,6 +19,25 @@ export default {
     props: {
         itemsCount: Number,
         totalPrice: Number
+    },
+    computed: {
+        buttonText() {
+            switch (this.$route.name) {
+                case 'cart':
+                    return 'تایید و تکمیل سفارش';
+                case 'shipping':
+                    return 'ثبت سفارش';
+                default:
+                    return '';
+            }
+        }
+    },
+    methods: {
+        handleClick() {
+            if (this.$route.name === 'cart') {
+                this.$router.push({ name: 'shipping' });
+            }
+        }
     }
 }
 </script>
