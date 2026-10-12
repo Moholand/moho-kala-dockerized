@@ -2,7 +2,7 @@
     <div class="footer">
         <div class="footer-logo d-flex justify-content-between w-100">
             <div class="brand d-flex align-items-center">
-                <img src="/images/logos/logo.png" width="115" height="45" alt="logo"/>
+                <img src="/images/logos/logo.svg" width="115" height="45" alt="logo"/>
                 <h5 class="name">موهو کالا</h5>
             </div>
             <button class="scroll-top d-flex align-items-center" @click="scrollToTop">

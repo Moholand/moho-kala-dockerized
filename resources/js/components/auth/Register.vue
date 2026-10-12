@@ -3,7 +3,7 @@
         <div class="register-form">
             <div class="text-center">
                 <a href="/" class="logo">
-                    <img src="/images/logos/logo.png" width="115" height="45"/>
+                    <img src="/images/logos/logo.svg" width="115" height="45"/>
                 </a>
             </div>
             <h1 class="mt-4 heading">

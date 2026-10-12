@@ -4,7 +4,7 @@
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-grow-1">
                     <a href="/" class="logo">
-                        <img src="/images/logos/logo.png" width="115" height="45" alt="logo"/>
+                        <img src="/images/logos/logo.svg" width="115" height="45" alt="logo"/>
                     </a>
                     <div class="search-form ml-auto px-2">
                         <div class="input-group rounded">
