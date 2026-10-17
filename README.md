@@ -81,7 +81,24 @@ docker compose exec app php artisan key:generate
 docker compose exec app php artisan migrate --seed
 ```
 
-### 5. Fix storage permissions
+### 5. Generate the Passport encryption keys
+
+Authentication on the API routes (`auth:api`) uses Laravel Passport. Without its
+key pair, requests fail with `LogicException: Invalid key supplied`
+(`vendor/league/oauth2-server/src/CryptKey.php`).
+
+```bash
+docker compose exec app php artisan passport:keys
+```
+
+If the OAuth clients/secrets are also missing (e.g. a fresh database), run the
+full installer instead, which generates the keys and creates the clients:
+
+```bash
+docker compose exec app php artisan passport:install
+```
+
+### 6. Fix storage permissions
 
 The bind mount also masks the `chown` performed in the `Dockerfile`, so PHP-FPM
 (which runs as `www-data`) cannot write logs/cache:
@@ -92,7 +109,7 @@ docker compose exec app chmod -R 775 storage bootstrap/cache
 docker compose exec app rm -f storage/logs/laravel.log
 ```
 
-### 6. Install front-end dependencies and run Vite
+### 7. Install front-end dependencies and run Vite
 
 ```bash
 docker compose run --rm --no-deps js npm install
@@ -108,7 +125,7 @@ If you prefer pre-built assets instead of a running dev server:
 docker compose run --rm --no-deps js npm run build
 ```
 
-### 7. Open the app
+### 8. Open the app
 
 - App: http://localhost:8000
 - phpMyAdmin: http://localhost:8080 (`root` / `root`)
