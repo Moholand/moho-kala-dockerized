@@ -5,13 +5,7 @@
             <div class="items-wrapper w-75">
                 <div class="items-header">آدرس و زمان ارسال</div>
                 <div class="items-body">
-                    <CartItem
-                        v-for="cartItem in cartItems"
-                        :key="cartItem.title"
-                        :cartItem="cartItem"
-                        @showAlert="showAlert"
-                        @deleteItem="deleteItem"
-                    />
+                    <!-- location -->
                 </div>
             </div>
             <div class="continue-checkout-wrapper w-25">

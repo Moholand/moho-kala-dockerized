@@ -98,6 +98,13 @@ full installer instead, which generates the keys and creates the clients:
 docker compose exec app php artisan passport:install
 ```
 
+If logging in fails with `Personal access client not found. Please create one.`
+(the personal access client is missing from `oauth_clients`), create it with:
+
+```bash
+docker compose exec app php artisan passport:client --personal
+```
+
 ### 6. Fix storage permissions
 
 The bind mount also masks the `chown` performed in the `Dockerfile`, so PHP-FPM
