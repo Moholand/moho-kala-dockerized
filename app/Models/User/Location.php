@@ -4,6 +4,7 @@ namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Location extends Model
 {
@@ -18,4 +19,9 @@ class Location extends Model
         'type',
         'parent_id'
     ];
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, 'parent_id');
+    }
 }

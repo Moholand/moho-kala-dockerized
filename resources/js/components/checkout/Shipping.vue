@@ -5,7 +5,19 @@
             <div class="items-wrapper w-75">
                 <div class="items-header">آدرس و زمان ارسال</div>
                 <div class="items-body">
-                    <!-- location -->
+                    <div class="address-box d-flex justify-content-between align-items-center">
+                        <div class="address-info">
+                            <div class="address-heading">ارسال به آدرس انتخاب‌ شده</div>
+                            <div class="address-detail" v-if="defaultAddress">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>{{ defaultAddress }}</span>
+                            </div>
+                            <div class="address-empty" v-else>
+                                هیچ آدرسی موجود نیست!
+                            </div>
+                        </div>
+                        <button class="change-address-btn" @click.prevent>تغییر آدرس</button>
+                    </div>
                 </div>
             </div>
             <div class="continue-checkout-wrapper w-25">
@@ -32,6 +44,7 @@ export default {
     data() {
         return {
             cartItems: null,
+            defaultAddress: 'تهران، خیابان ولیعصر، پلاک ۱۲، کد پستی ۱۲۳۴۵۶۷۸۹۰',
         }
     },
     mixins: [alertMixin],
@@ -91,5 +104,39 @@ export default {
         font-size: 14px;
         color: #81858b;
         padding-right: 24px;
+    }
+    .address-box {
+        margin: 0 24px;
+        padding: 16px 20px;
+        border: 1px solid #e0e0e2;
+        border-radius: 10px;
+    }
+    .address-heading {
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+    .address-detail {
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        color: #62666d;
+    }
+    .address-detail i {
+        color: #ef4056;
+        margin-left: 8px;
+    }
+    .address-empty {
+        font-size: 13px;
+        color: #ef4056;
+    }
+    .change-address-btn {
+        background-color: transparent;
+        border: 1px solid #ef4056;
+        color: #ef4056;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 13px;
+        cursor: pointer;
+        white-space: nowrap;
     }
 </style>

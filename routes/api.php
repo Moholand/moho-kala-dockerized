@@ -36,3 +36,8 @@ Route::prefix('carts')->middleware('auth:api')->group(function () {
     Route::delete('products/{product}', [\App\Http\Controllers\Api\Checkout\Cart\CartProductController::class, 'deleteFromCart']);
     Route::patch('products/{product}/changeCount', [\App\Http\Controllers\Api\Checkout\Cart\CartProductController::class, 'changeCount']);
 });
+
+// api/addresses
+Route::prefix('addresses')->middleware('auth:api')->group(function () {
+    Route::get('default', [\App\Http\Controllers\Api\Checkout\Address\AddressController::class, 'defaultAddress']);
+});
