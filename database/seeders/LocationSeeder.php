@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User\Location;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class LocationSeeder extends Seeder
 {
@@ -12,221 +11,308 @@ class LocationSeeder extends Seeder
     {
         $locations = [
             'تهران' => [
-                'شهر تهران',
-                'ری',
-                'شمیرانات',
-                'اسلامشهر',
-                'شهریار',
-                'قدس',
-                'ملارد',
-                'پردیس',
-                'دماوند',
-                'فیروزکوه',
-                'پاکدشت',
-                'قرچک',
-                'ورامین'
+                'slug' => 'tehran',
+                'cities' => [
+                    'تهران' => 'tehran',
+                    'ری' => 'rey',
+                    'شمیرانات' => 'shemiranat',
+                    'اسلامشهر' => 'eslamshahr',
+                    'شهریار' => 'shahriar',
+                    'قدس' => 'qods',
+                    'ملارد' => 'malard',
+                    'پردیس' => 'pardis',
+                    'دماوند' => 'damavand',
+                    'فیروزکوه' => 'firuzkuh',
+                    'پاکدشت' => 'pakdasht',
+                    'قرچک' => 'qarchak',
+                    'ورامین' => 'varamin',
+                ],
             ],
             'اصفهان' => [
-                'شهر اصفهان',
-                'کاشان',
-                'نجف‌آباد',
-                'خمینی‌شهر',
-                'شاهین‌شهر',
-                'فلاورجان',
-                'مبارکه',
-                'زرین‌شهر',
-                'نطنز',
-                'اردستان'
+                'slug' => 'isfahan',
+                'cities' => [
+                    'اصفهان' => 'isfahan',
+                    'کاشان' => 'kashan',
+                    'نجف‌آباد' => 'najafabad',
+                    'خمینی‌شهر' => 'khomeynishahr',
+                    'شاهین‌شهر' => 'shahinshahr',
+                    'فلاورجان' => 'falavarjan',
+                    'مبارکه' => 'mobarakeh',
+                    'زرین‌شهر' => 'zarrinshahr',
+                    'نطنز' => 'natanz',
+                    'اردستان' => 'ardestan',
+                ],
             ],
             'فارس' => [
-                'شیراز',
-                'مرودشت',
-                'کازرون',
-                'جهرم',
-                'لار',
-                'فسا',
-                'داراب',
-                'آباده'
+                'slug' => 'fars',
+                'cities' => [
+                    'شیراز' => 'shiraz',
+                    'مرودشت' => 'marvdasht',
+                    'کازرون' => 'kazerun',
+                    'جهرم' => 'jahrom',
+                    'لار' => 'lar',
+                    'فسا' => 'fasa',
+                    'داراب' => 'darab',
+                    'آباده' => 'abadeh',
+                ],
             ],
             'خراسان رضوی' => [
-                'مشهد',
-                'نیشابور',
-                'سبزوار',
-                'تربت حیدریه',
-                'کاشمر',
-                'قوچان',
-                'تایباد'
+                'slug' => 'khorasan-razavi',
+                'cities' => [
+                    'مشهد' => 'mashhad',
+                    'نیشابور' => 'neyshabur',
+                    'سبزوار' => 'sabzevar',
+                    'تربت حیدریه' => 'torbat-e-heydarieh',
+                    'کاشمر' => 'kashmar',
+                    'قوچان' => 'quchan',
+                    'تایباد' => 'taybad',
+                ],
             ],
             'آذربایجان شرقی' => [
-                'تبریز',
-                'مراغه',
-                'مرند',
-                'میانه',
-                'اهر',
-                'بناب'
+                'slug' => 'azerbaijan-sharghi',
+                'cities' => [
+                    'تبریز' => 'tabriz',
+                    'مراغه' => 'maragheh',
+                    'مرند' => 'marand',
+                    'میانه' => 'mianeh',
+                    'اهر' => 'ahar',
+                    'بناب' => 'bonab',
+                ],
             ],
             'آذربایجان غربی' => [
-                'ارومیه',
-                'خوی',
-                'میاندوآب',
-                'مهاباد',
-                'بوکان',
-                'پیرانشهر'
+                'slug' => 'azerbaijan-gharbi',
+                'cities' => [
+                    'ارومیه' => 'urmia',
+                    'خوی' => 'khoy',
+                    'میاندوآب' => 'miandoab',
+                    'مهاباد' => 'mahabad',
+                    'بوکان' => 'bukan',
+                    'پیرانشهر' => 'piranshahr',
+                ],
             ],
             'البرز' => [
-                'کرج',
-                'فردیس',
-                'نظرآباد',
-                'هشتگرد',
-                'طالقان'
+                'slug' => 'alborz',
+                'cities' => [
+                    'کرج' => 'karaj',
+                    'فردیس' => 'fardis',
+                    'نظرآباد' => 'nazarabad',
+                    'هشتگرد' => 'hashtgerd',
+                    'طالقان' => 'taleqan',
+                ],
             ],
             'گیلان' => [
-                'رشت',
-                'انزلی',
-                'لاهیجان',
-                'لنگرود',
-                'رودسر',
-                'آستارا'
+                'slug' => 'gilan',
+                'cities' => [
+                    'رشت' => 'rasht',
+                    'انزلی' => 'anzali',
+                    'لاهیجان' => 'lahijan',
+                    'لنگرود' => 'langarud',
+                    'رودسر' => 'rudsar',
+                    'آستارا' => 'astara',
+                ],
             ],
             'مازندران' => [
-                'ساری',
-                'بابل',
-                'آمل',
-                'قائم‌شهر',
-                'نوشهر',
-                'چالوس',
-                'تنکابن'
+                'slug' => 'mazandaran',
+                'cities' => [
+                    'ساری' => 'sari',
+                    'بابل' => 'babol',
+                    'آمل' => 'amol',
+                    'قائم‌شهر' => 'qaemshahr',
+                    'نوشهر' => 'nowshahr',
+                    'چالوس' => 'chalus',
+                    'تنکابن' => 'tonekabon',
+                ],
             ],
             'خوزستان' => [
-                'اهواز',
-                'آبادان',
-                'خرمشهر',
-                'دزفول',
-                'شوشتر',
-                'اندیمشک',
-                'ماهشهر'
+                'slug' => 'khuzestan',
+                'cities' => [
+                    'اهواز' => 'ahvaz',
+                    'آبادان' => 'abadan',
+                    'خرمشهر' => 'khorramshahr',
+                    'دزفول' => 'dezful',
+                    'شوشتر' => 'shushtar',
+                    'اندیمشک' => 'andimeshk',
+                    'ماهشهر' => 'mahshahr',
+                ],
             ],
             'قم' => [
-                'شهر قم'
+                'slug' => 'qom',
+                'cities' => [
+                    'قم' => 'qom',
+                ],
             ],
             'قزوین' => [
-                'شهر قزوین',
-                'الوند',
-                'آبیک',
-                'تاکستان'
+                'slug' => 'qazvin',
+                'cities' => [
+                    'قزوین' => 'qazvin',
+                    'الوند' => 'alvand',
+                    'آبیک' => 'abyek',
+                    'تاکستان' => 'takestan',
+                ],
             ],
             'کرمان' => [
-                'شهر کرمان',
-                'سیرجان',
-                'رفسنجان',
-                'بم',
-                'جیرفت'
+                'slug' => 'kerman',
+                'cities' => [
+                    'کرمان' => 'kerman',
+                    'سیرجان' => 'sirjan',
+                    'رفسنجان' => 'rafsanjan',
+                    'بم' => 'bam',
+                    'جیرفت' => 'jiroft',
+                ],
             ],
             'کرمانشاه' => [
-                'شهر کرمانشاه',
-                'اسلام‌آباد غرب',
-                'سنقر',
-                'هرسین'
+                'slug' => 'kermanshah',
+                'cities' => [
+                    'کرمانشاه' => 'kermanshah',
+                    'اسلام‌آباد غرب' => 'eslamabad-e-gharb',
+                    'سنقر' => 'songhor',
+                    'هرسین' => 'harsin',
+                ],
             ],
             'همدان' => [
-                'شهر همدان',
-                'ملایر',
-                'نهاوند',
-                'تویسرکان'
+                'slug' => 'hamedan',
+                'cities' => [
+                    'همدان' => 'hamedan',
+                    'ملایر' => 'malayer',
+                    'نهاوند' => 'nahavand',
+                    'تویسرکان' => 'tuyserkan',
+                ],
             ],
             'یزد' => [
-                'شهر یزد',
-                'میبد',
-                'اردکان',
-                'بافق'
+                'slug' => 'yazd',
+                'cities' => [
+                    'یزد' => 'yazd',
+                    'میبد' => 'meybod',
+                    'اردکان' => 'ardakan',
+                    'بافق' => 'bafq',
+                ],
             ],
             'هرمزگان' => [
-                'بندرعباس',
-                'قشم',
-                'کیش',
-                'میناب'
+                'slug' => 'hormozgan',
+                'cities' => [
+                    'بندرعباس' => 'bandar-abbas',
+                    'قشم' => 'qeshm',
+                    'کیش' => 'kish',
+                    'میناب' => 'minab',
+                ],
             ],
             'سیستان و بلوچستان' => [
-                'زاهدان',
-                'چابهار',
-                'ایرانشهر',
-                'سراوان',
-                'خاش'
+                'slug' => 'sistan-va-baluchestan',
+                'cities' => [
+                    'زاهدان' => 'zahedan',
+                    'چابهار' => 'chabahar',
+                    'ایرانشهر' => 'iranshahr',
+                    'سراوان' => 'saravan',
+                    'خاش' => 'khash',
+                ],
             ],
             'بوشهر' => [
-                'شهر بوشهر',
-                'برازجان',
-                'گناوه',
-                'دیر'
+                'slug' => 'bushehr',
+                'cities' => [
+                    'بوشهر' => 'bushehr',
+                    'برازجان' => 'borazjan',
+                    'گناوه' => 'genaveh',
+                    'دیر' => 'deyr',
+                ],
             ],
             'گلستان' => [
-                'گرگان',
-                'گنبد کاووس',
-                'علی‌آباد کتول',
-                'آق‌قلا'
+                'slug' => 'golestan',
+                'cities' => [
+                    'گرگان' => 'gorgan',
+                    'گنبد کاووس' => 'gonbad-e-kavus',
+                    'علی‌آباد کتول' => 'aliabad-e-katul',
+                    'آق‌قلا' => 'aqqala',
+                ],
             ],
             'اردبیل' => [
-                'شهر اردبیل',
-                'مشگین‌شهر',
-                'پارس‌آباد',
-                'خلخال'
+                'slug' => 'ardabil',
+                'cities' => [
+                    'اردبیل' => 'ardabil',
+                    'مشگین‌شهر' => 'meshginshahr',
+                    'پارس‌آباد' => 'parsabad',
+                    'خلخال' => 'khalkhal',
+                ],
             ],
             'زنجان' => [
-                'شهر زنجان',
-                'ابهر',
-                'خرمدره'
+                'slug' => 'zanjan',
+                'cities' => [
+                    'زنجان' => 'zanjan',
+                    'ابهر' => 'abhar',
+                    'خرمدره' => 'khorramdarreh',
+                ],
             ],
             'ایلام' => [
-                'شهر ایلام',
-                'دهلران',
-                'مهران'
+                'slug' => 'ilam',
+                'cities' => [
+                    'ایلام' => 'ilam',
+                    'دهلران' => 'dehlran',
+                    'مهران' => 'mehran',
+                ],
             ],
             'کهگیلویه و بویراحمد' => [
-                'یاسوج',
-                'دوگنبدان',
-                'دهدشت'
+                'slug' => 'kohgiluyeh-va-boyer-ahmad',
+                'cities' => [
+                    'یاسوج' => 'yasuj',
+                    'دوگنبدان' => 'do-gonbadan',
+                    'دهدشت' => 'dehdasht',
+                ],
             ],
             'چهارمحال و بختیاری' => [
-                'شهرکرد',
-                'بروجن',
-                'فارسان'
+                'slug' => 'chaharmahal-va-bakhtiari',
+                'cities' => [
+                    'شهرکرد' => 'shahrekord',
+                    'بروجن' => 'borujen',
+                    'فارسان' => 'farsan',
+                ],
             ],
             'خراسان شمالی' => [
-                'بجنورد',
-                'شیروان',
-                'اسفراین'
+                'slug' => 'khorasan-shomali',
+                'cities' => [
+                    'بجنورد' => 'bojnurd',
+                    'شیروان' => 'shirvan',
+                    'اسفراین' => 'esfarayen',
+                ],
             ],
             'خراسان جنوبی' => [
-                'بیرجند',
-                'قائن',
-                'طبس'
+                'slug' => 'khorasan-jonubi',
+                'cities' => [
+                    'بیرجند' => 'birjand',
+                    'قائن' => 'qaen',
+                    'طبس' => 'tabas',
+                ],
             ],
             'سمنان' => [
-                'شهر سمنان',
-                'شاهرود',
-                'دامغان',
-                'گرمسار'
+                'slug' => 'semnan',
+                'cities' => [
+                    'سمنان' => 'semnan',
+                    'شاهرود' => 'shahroud',
+                    'دامغان' => 'damghan',
+                    'گرمسار' => 'garmsar',
+                ],
             ],
             'مرکزی' => [
-                'اراک',
-                'ساوه',
-                'خمین',
-                'محلات'
-            ]
+                'slug' => 'markazi',
+                'cities' => [
+                    'اراک' => 'arak',
+                    'ساوه' => 'saveh',
+                    'خمین' => 'khomeyn',
+                    'محلات' => 'mahallat',
+                ],
+            ],
         ];
 
-        foreach ($locations as $provinceName => $cities) {
+        foreach ($locations as $provinceName => $provinceData) {
             $province = Location::create([
                 'name' => $provinceName,
-                'slug' => Str::slug($provinceName),
+                'slug' => $provinceData['slug'],
                 'type' => Location::TYPE_PROVINCE,
                 'parent_id' => null,
             ]);
 
-            foreach ($cities as $city) {
+            foreach ($provinceData['cities'] as $cityName => $citySlug) {
                 Location::create([
-                    'name' => $city,
-                    'slug' => Str::slug($city),
+                    'name' => $cityName,
+                    'slug' => $citySlug,
                     'type' => Location::TYPE_CITY,
                     'parent_id' => $province->id,
                 ]);

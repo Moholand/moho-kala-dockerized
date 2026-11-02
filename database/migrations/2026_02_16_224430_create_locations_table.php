@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name', 100);
-            $table->string('slug', 120)->unique();
+            $table->string('slug', 120);
             $table->enum('type', [Location::TYPE_PROVINCE, Location::TYPE_CITY]);
             $table->foreignId('parent_id')->nullable()->constrained('locations')->nullOnDelete();
         });

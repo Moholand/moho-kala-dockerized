@@ -10,7 +10,7 @@
                             <div class="address-heading">ارسال به آدرس انتخاب‌ شده</div>
                             <div class="address-detail" v-if="defaultAddress">
                                 <i class="fa-solid fa-location-dot"></i>
-                                <span>{{ defaultAddress }}</span>
+                                <span>{{ addressText }}</span>
                             </div>
                             <div class="address-empty" v-else>
                                 هیچ آدرسی موجود نیست!
@@ -44,7 +44,7 @@ export default {
     data() {
         return {
             cartItems: null,
-            defaultAddress: 'تهران، خیابان ولیعصر، پلاک ۱۲، کد پستی ۱۲۳۴۵۶۷۸۹۰',
+            defaultAddress: null,
         }
     },
     mixins: [alertMixin],
@@ -52,8 +52,15 @@ export default {
         axios.get(`/api/carts`)
             .then(response => this.cartItems = response.data)
             .catch((error) => console.log(error))
+
+        this.fetchDefaultAddress();
     },
     methods: {
+        fetchDefaultAddress() {
+            axios.get(`/api/addresses/default`)
+                .then(response => this.defaultAddress = response.data.address)
+                .catch((error) => console.log(error))
+        },
         deleteItem(id) {
             this.cartItems = this.cartItems.filter(item => item.id !== id);
         }
@@ -64,6 +71,33 @@ export default {
         },
         totalPrice() {
             return this.cartItems.reduce((price, item) => price + (item.pivot.count * item.price), 0);
+        },
+        addressText() {
+            const address = this.defaultAddress;
+
+            if (!address) {
+                return null;
+            }
+
+            const parts = [];
+            const location = address.location;
+
+            if (location) {
+                if (location.parent) {
+                    parts.push(location.parent.name);
+                }
+                parts.push(location.name);
+            }
+
+            if (address.street) {
+                parts.push(address.street);
+            }
+
+            if (address.postal_code) {
+                parts.push(`کد پستی ${address.postal_code}`);
+            }
+
+            return parts.join('، ');
         },
     },
 }
