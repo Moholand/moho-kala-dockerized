@@ -15,6 +15,19 @@ class AddressController extends Controller
     {}
 
     /**
+     * Route:: GET:/api/addresses
+     */
+    public function index(): JsonResponse
+    {
+        $addresses = $this->addressService->getAll(Auth::user());
+
+        return response()->json(
+            ['addresses' => AddressResource::collection($addresses)],
+            Response::HTTP_OK
+        );
+    }
+
+    /**
      * Route:: GET:/api/addresses/default
      */
     public function defaultAddress(): JsonResponse

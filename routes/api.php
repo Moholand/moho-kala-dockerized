@@ -39,5 +39,6 @@ Route::prefix('carts')->middleware('auth:api')->group(function () {
 
 // api/addresses
 Route::prefix('addresses')->middleware('auth:api')->group(function () {
+    Route::get('', [\App\Http\Controllers\Api\Checkout\Address\AddressController::class, 'index']);
     Route::get('default', [\App\Http\Controllers\Api\Checkout\Address\AddressController::class, 'defaultAddress']);
 });
