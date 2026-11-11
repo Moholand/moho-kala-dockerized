@@ -21,4 +21,9 @@ class AddressService
     {
         return $this->addressRepository->getAll($user);
     }
+
+    public function store(User $user, array $attributes): Address
+    {
+        return $this->addressRepository->store($user, $attributes);
+    }
 }

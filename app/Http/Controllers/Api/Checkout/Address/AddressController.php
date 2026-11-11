@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Checkout\Address;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Checkout\StoreAddressRequest;
 use App\Http\Resources\AddressResource;
 use App\Services\Api\Checkout\Address\AddressService;
 use Illuminate\Http\JsonResponse;
@@ -24,6 +25,19 @@ class AddressController extends Controller
         return response()->json(
             ['addresses' => AddressResource::collection($addresses)],
             Response::HTTP_OK
+        );
+    }
+
+    /**
+     * Route:: POST:/api/addresses
+     */
+    public function store(StoreAddressRequest $request): JsonResponse
+    {
+        $address = $this->addressService->store(Auth::user(), $request->validated());
+
+        return response()->json(
+            ['address' => new AddressResource($address)],
+            Response::HTTP_CREATED
         );
     }
 

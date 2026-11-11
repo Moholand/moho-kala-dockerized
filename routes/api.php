@@ -40,5 +40,8 @@ Route::prefix('carts')->middleware('auth:api')->group(function () {
 // api/addresses
 Route::prefix('addresses')->middleware('auth:api')->group(function () {
     Route::get('', [\App\Http\Controllers\Api\Checkout\Address\AddressController::class, 'index']);
+    Route::post('', [\App\Http\Controllers\Api\Checkout\Address\AddressController::class, 'store']);
     Route::get('default', [\App\Http\Controllers\Api\Checkout\Address\AddressController::class, 'defaultAddress']);
 });
+
+Route::get('/locations', [\App\Http\Controllers\Api\LocationController::class, 'index']);

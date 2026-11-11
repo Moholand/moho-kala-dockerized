@@ -36,6 +36,100 @@ class AddressControllerTest extends TestCase
     }
 
     /** @test */
+    public function test_guest_cannot_create_address()
+    {
+        $this->json('POST', '/api/addresses', [
+            'street'      => 'خیابان انقلاب',
+            'postal_code' => '1234567890',
+        ])->assertUnauthorized();
+    }
+
+    /** @test */
+    public function test_cannot_create_address_without_required_fields()
+    {
+        $this->actingAs($this->user, 'api')
+            ->json('POST', '/api/addresses', [])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['street', 'postal_code']);
+    }
+
+    /** @test */
+    public function test_creates_address_for_authenticated_user()
+    {
+        $province = Location::create([
+            'name' => 'تهران',
+            'slug' => 'tehran',
+            'type' => Location::TYPE_PROVINCE,
+        ]);
+
+        $city = Location::create([
+            'name'      => 'شهر تهران',
+            'slug'      => 'tehran-city',
+            'type'      => Location::TYPE_CITY,
+            'parent_id' => $province->id,
+        ]);
+
+        $this->actingAs($this->user, 'api')
+            ->json('POST', '/api/addresses', [
+                'label'       => 'خانه',
+                'phone'       => '09123456789',
+                'street'      => 'خیابان انقلاب',
+                'postal_code' => '1234567890',
+                'location_id' => $city->id,
+                'is_default'  => true,
+            ])
+            ->assertCreated()
+            ->assertJsonPath('address.label', 'خانه')
+            ->assertJsonPath('address.street', 'خیابان انقلاب')
+            ->assertJsonPath('address.postal_code', '1234567890')
+            ->assertJsonPath('address.phone', '09123456789')
+            ->assertJsonPath('address.is_default', true)
+            ->assertJsonPath('address.location.id', $city->id)
+            ->assertJsonPath('address.location.parent.id', $province->id);
+
+        $this->assertDatabaseHas('addresses', [
+            'user_id'     => $this->user->id,
+            'location_id' => $city->id,
+            'street'      => 'خیابان انقلاب',
+            'postal_code' => '1234567890',
+        ]);
+    }
+
+    /** @test */
+    public function test_first_address_is_saved_as_default()
+    {
+        $this->actingAs($this->user, 'api')
+            ->json('POST', '/api/addresses', [
+                'street'      => 'خیابان انقلاب',
+                'postal_code' => '1234567890',
+                'is_default'  => false,
+            ])
+            ->assertCreated()
+            ->assertJsonPath('address.is_default', true);
+    }
+
+    /** @test */
+    public function test_new_default_address_unsets_previous_default_address()
+    {
+        $previousDefault = Address::factory()->create([
+            'user_id'    => $this->user->id,
+            'is_default' => true,
+        ]);
+
+        $this->actingAs($this->user, 'api')
+            ->json('POST', '/api/addresses', [
+                'street'      => 'خیابان انقلاب',
+                'postal_code' => '1234567890',
+                'is_default'  => true,
+            ])
+            ->assertCreated()
+            ->assertJsonPath('address.is_default', true);
+
+        $this->assertFalse($previousDefault->fresh()->is_default);
+        $this->assertEquals(1, $this->user->addresses()->where('is_default', true)->count());
+    }
+
+    /** @test */
     public function test_returns_empty_addresses_list_when_user_has_no_address()
     {
         $this->actingAs($this->user, 'api')
